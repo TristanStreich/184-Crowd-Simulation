@@ -70,6 +70,9 @@ public class personController : MonoBehaviour
         rays.Clear();
     }
 
+    //creates rays fanning out from the person
+    //appends to the rays list
+    //draws the ray if visible set to true
     public void generateRays(){
         for (int i=0;i<numRays;i++){
             float angle = ((float) i)/numRays*visibilityAngle;
@@ -88,6 +91,9 @@ public class personController : MonoBehaviour
         return new Ray(transform.position,direction,angle,maxDist:visibleLength);
     }
 
+    //Draws a line representing the ray on the screen
+    //Draws sets the color to blue if it does not have a collison and red otherwise
+    //adds ray line renderer object to visbleRays list
     void drawRay(Ray ray){
 
         GameObject rayObj = new GameObject();
