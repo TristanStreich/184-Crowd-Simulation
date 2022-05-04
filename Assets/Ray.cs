@@ -12,7 +12,7 @@ public class Ray
 
     float maxDist;
 
-    public Ray(Vector3 position, Vector3 direction,float angle, float maxDist = 1000f){
+    public Ray(Vector3 position, Vector3 direction,float angle, float maxDist = 3000f){
         this.position = position;
         this.direction = direction;
         this.angle=angle;

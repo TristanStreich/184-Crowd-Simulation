@@ -5,7 +5,7 @@ using UnityEngine;
 public class personController : MonoBehaviour
 {
 
-
+    
     public float visibleLength;
     public int numRays;
     [Range(0f,180f)]
@@ -22,6 +22,7 @@ public class personController : MonoBehaviour
     List<Ray> rays;
     Rigidbody body;
     float initialSpeed;
+    float interval = 50;
     // Start is called before the first frame update
     void Start()
     {
@@ -59,7 +60,12 @@ public class personController : MonoBehaviour
             nudgeAngle += turnAngle*((visibleLength - distance)/visibleLength)*nudgeFactor;
         }
 
-        body.velocity = rotate(body.velocity, nudgeAngle);
+        // doesn't update rotation every update
+        if (Time.frameCount % interval == 0)
+        {
+            body.velocity = rotate(body.velocity, nudgeAngle);
+        }
+        
     }
 
     public void clearRays(){

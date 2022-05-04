@@ -5,6 +5,7 @@ using UnityEngine;
 public class Swarm : MonoBehaviour
 {
     public float alpha = 0.5f, speed = 30f, r = 0.1f, repulsion= 4f;
+    public GameObject target;
 
     List<Collider> colliders;
     Vector3 movement;
@@ -14,12 +15,15 @@ public class Swarm : MonoBehaviour
     Rigidbody rb;
     Vector3 basePos;
 
+    Vector3 targetPos;
+
     // Start is called before the first frame update
     void Start()
     {  
         colliders = new List<Collider>();
-        movement = new Vector3(0f,0f,0f);
+        movement = new Vector3(0f,0f,5f);
         rb = GetComponent<Rigidbody>();
+        targetPos = target.transform.position;
     }
 
     // Update is called once per frame
@@ -31,7 +35,8 @@ public class Swarm : MonoBehaviour
         basePos[1] = transform.position[1];
         rb.MovePosition(basePos);
         direction = Vector3.Normalize((1f-alpha) * movement);
-        updateDirection = Vector3.zero;
+        //updateDirection = Vector3.zero;
+        updateDirection = targetPos - transform.position ;
 
         for(int i = 0; i <  Mathf.Min(colliders.Count , 5); i++)
         {
