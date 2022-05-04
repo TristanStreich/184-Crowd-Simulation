@@ -4,21 +4,48 @@ using UnityEngine;
 
 public class Spawner : MonoBehaviour
 {
-    public int amount = 10;
+    public int amount = 20;
     public GameObject unit;
+    public int interval = 100;
+    public int rangeX = 50;
+    public int rangeZ = 50;
+
+    private Transform spawnTransform;
     
+
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(Spawn());
+        /* StartCoroutine(Spawn());*/
+        spawnTransform.position = new Vector3(-150, 0.7f, -216);
+
     }
 
-    IEnumerator Spawn()
+    private void Update()
     {
-        for(int i=0; i<amount; i++)
+        if (Time.frameCount % interval == 0)
         {
-            Instantiate(unit);//, Vector3.zero, Quaternion.identity);
-            yield return null;
+            float spawnX = Random.Range(transform.position.x-rangeX, transform.position.x+rangeX);
+            float spawnZ = Random.Range(transform.position.z - rangeZ, transform.position.z + rangeZ);
+            Vector3 spawnPos = new Vector3(spawnX, 0.7f, spawnZ);
+            Instantiate(unit, spawnPos, Quaternion.identity);
         }
     }
+    /*
+   IEnumerator Spawn()
+   {
+       
+
+
+               for(int i=0; i<amount; i++)
+               {
+                   int spawnZ = Random.Range(-212, -133);
+                   Vector3 spawnPos = new Vector3(-91, 0.7f, spawnZ);
+                   //new Vector3(UnityEngine.Random.Range(-150, -80), 0.7f,
+                   //    UnityEngine.Random.Range(-216,-200));
+                   Instantiate(unit, spawnPos, Quaternion.identity);//, Vector3.zero, Quaternion.identity);
+                   yield return null;
+               
+}
+    }*/
 }
