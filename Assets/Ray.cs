@@ -35,7 +35,7 @@ public class Ray
     //returns the distance to the nearest collions.
     //Does collide with people
     //returns -1f if there is no collision
-    public float getNearestCollion(){
+    public float getNearestCollision(){
                 RaycastHit hit;
         if (Physics.Raycast(position, direction, out hit, maxDistance:maxDist)){
             return hit.distance;

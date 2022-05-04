@@ -133,6 +133,7 @@ MonoBehaviour:
   initalVelocity: {x: 0, y: 0, z: 0}
   nudgeFactor: 0.3
   acceleration: 0.1
+  interval: 50
 --- !u!96 &5579828889041856844
 TrailRenderer:
   serializedVersion: 2

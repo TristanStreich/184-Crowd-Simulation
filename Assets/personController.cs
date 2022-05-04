@@ -11,10 +11,12 @@ public class personController : MonoBehaviour
     [Range(0f,180f)]
     public float visibilityAngle;
     public bool visible;
+    public bool detectPeople;
     public Vector3 initalVelocity;
     public float nudgeFactor;
     [Range(0f,1f)]
     public float acceleration;
+    public float interval;
 
 
     float lineWidth = 0.1f;
@@ -22,7 +24,7 @@ public class personController : MonoBehaviour
     List<Ray> rays;
     Rigidbody body;
     float initialSpeed;
-    float interval = 50;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +33,7 @@ public class personController : MonoBehaviour
         body = GetComponent<Rigidbody>();
         body.velocity = initalVelocity;
         initialSpeed = initalVelocity.magnitude;
+        if (numRays % 2 == 0) numRays++; //Rays should be an odd number so there is one dead ahead
     }
 
     // Update is called once per frame
@@ -54,7 +57,7 @@ public class personController : MonoBehaviour
         float nudgeAngle = 0f;
         float distance;
         foreach (Ray ray in rays){
-            distance = ray.getNearestWallCollision();
+            distance = detectPeople ? ray.getNearestCollision() : ray.getNearestWallCollision();
             if (distance < 0) continue;
             float turnAngle = -(visibilityAngle/2 - Mathf.Abs(ray.angle))*Mathf.Sign(ray.angle);
             nudgeAngle += turnAngle*((visibleLength - distance)/visibleLength)*nudgeFactor;
@@ -81,7 +84,7 @@ public class personController : MonoBehaviour
     //draws the ray if visible set to true
     public void generateRays(){
         for (int i=0;i<numRays;i++){
-            float angle = ((float) i)/numRays*visibilityAngle;
+            float angle = ((float) i)/(numRays-1)*visibilityAngle;
             angle -= visibilityAngle/2;
             Ray ray = makeRay(angle);
             rays.Add(ray);
@@ -102,6 +105,9 @@ public class personController : MonoBehaviour
     //adds ray line renderer object to visbleRays list
     void drawRay(Ray ray){
 
+        Color startingColor = Color.white;
+        Color collColor = Color.red;
+
         GameObject rayObj = new GameObject();
         rayObj.name = "Visible Ray";
 
@@ -110,16 +116,18 @@ public class personController : MonoBehaviour
         drawLine.material = new Material(Shader.Find("Sprites/Default"));
         drawLine.startWidth = lineWidth;
         drawLine.endWidth = lineWidth;
-        drawLine.startColor = Color.red;
-        drawLine.endColor = Color.red;
+        drawLine.startColor = startingColor;
+        drawLine.endColor = startingColor;
 
         drawLine.positionCount = 2;
 
-        float len = ray.getNearestWallCollision();
-        if (len == -1){
+        float len = detectPeople ? ray.getNearestCollision() : ray.getNearestWallCollision();
+        if (len >= 0){
+            float w = len/visibleLength;
+            drawLine.startColor = startingColor*(w) + collColor*(1-w);
+            drawLine.endColor = startingColor*(w) + collColor*(1-w);
+        } else {
             len = visibleLength;
-            drawLine.startColor = Color.blue;
-            drawLine.endColor = Color.blue;
         }
 
         drawLine.SetPositions(new [] {ray.position, ray.position + ray.direction*len});
