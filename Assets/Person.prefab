@@ -125,7 +125,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1333b07755f75b54e9d08f6a26215745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleLength: 10
+  visibleLength: 17.23
   numRays: 30
   visibilityAngle: 90
   visible: 1
