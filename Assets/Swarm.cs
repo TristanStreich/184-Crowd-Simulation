@@ -36,7 +36,7 @@ public class Swarm : MonoBehaviour
         rb.MovePosition(basePos);
         direction = Vector3.Normalize((1f-alpha) * movement);
         updateDirection = Vector3.zero;
-        //updateDirection =  transform.position ;
+        updateDirection =  transform.position ;
 
         for (int i = 0; i < Mathf.Min(colliders.Count, 5); i++)
         {
