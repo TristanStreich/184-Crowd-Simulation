@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Swarm : MonoBehaviour
 {
-    public float alpha = 0.5f, speed = 30f, r = 0.1f, repulsion= 4f;
+    public float alpha = 0.5f, speed = 300f, r = 0.1f, repulsion= 4f;
     public GameObject target;
 
     List<Collider> colliders;
@@ -35,19 +35,18 @@ public class Swarm : MonoBehaviour
         basePos[1] = transform.position[1];
         rb.MovePosition(basePos);
         direction = Vector3.Normalize((1f-alpha) * movement);
-        //updateDirection = Vector3.zero;
-        updateDirection = targetPos - transform.position ;
+        updateDirection = Vector3.zero;
+        //updateDirection =  transform.position ;
 
-        for(int i = 0; i <  Mathf.Min(colliders.Count , 5); i++)
+        for (int i = 0; i < Mathf.Min(colliders.Count, 5); i++)
         {
             //Go the other way
-            if(Vector3.Distance(transform.position, colliders[i].transform.position) < repulsion)  
+            if (Vector3.Distance(transform.position, colliders[i].transform.position) < repulsion)
                 updateDirection += Vector3.Normalize(transform.position - colliders[i].transform.position);
-             //go twords others
+            //go twords others
             else
                 updateDirection += colliders[i].transform.forward;
         }
-
         updateDirection = Vector3.Normalize(updateDirection);
         rotation = Quaternion.LookRotation(0.1f * direction + 0.5f * updateDirection + 0.5f * transform.forward, transform.up);
         rb.MoveRotation(rotation);
