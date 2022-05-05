@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5579828889041856844}
   - component: {fileID: 6953176173556419460}
   m_Layer: 3
-  m_Name: Person
+  m_Name: Person_shy
   m_TagString: People
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ddda067ad924eb41ae61662d5f0757a, type: 2}
+  - {fileID: 2100000, guid: 000c66001e46fca4c93732aebb533b3b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -185,8 +185,8 @@ TrailRenderer:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
-        time: 0
-        value: 0.08196721
+        time: 0.007041931
+        value: 0.19672856
         inSlope: 0
         outSlope: 0
         tangentMode: 0

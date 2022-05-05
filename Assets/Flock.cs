@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Flock : MonoBehaviour
 {
-
 	public FlockManager myManager;
 	float speed;
 	Vector3 direction;
@@ -43,34 +42,35 @@ public class Flock : MonoBehaviour
 			{
 				nDistance = Vector3.Distance(go.transform.position, this.transform.position);
 
-                if (nDistance <= myManager.neighbourDistance)
-                {
-					
-                    vcentre += go.transform.position;
+				if (nDistance <= myManager.neighbourDistance)
+				{
+
+					vcentre += go.transform.position;
 					groupSize++;
 
-					vavoid =  vavoid +  10 * (this.transform.position - go.transform.position);
-					
+					vavoid = vavoid + 10 * (this.transform.position - go.transform.position);
+
 					Flock anotherFlock = go.GetComponent<Flock>();
 					gSpeed = gSpeed + anotherFlock.speed;
-                }
-            }
+				}
+			}
 		}
 		if (groupSize > 0)
 		{
 			vcentre = vcentre / groupSize;
 			speed = gSpeed / groupSize;
-			
-			Vector3 direction =  - transform.position + (vcentre + vavoid);
+
+			Vector3 direction = targetpos -transform.position + (vcentre + vavoid);
 
 			if (direction != Vector3.zero)
 				transform.Rotate(direction);
-			/*	transform.rotation = Quaternion.Slerp(transform.rotation,
-													  Quaternion.LookRotation(direction),
-													  myManager.rotationSpeed );*/
-				//float rotation = Quaternion.LookRotation(direction);
-				print(transform.rotation);
-				
+            transform.rotation = Quaternion.Slerp(transform.rotation,
+                                                  Quaternion.LookRotation(direction),
+                                                  myManager.rotationSpeed);
+            //float rotation = Quaternion.LookRotation(direction);
+            //print(transform.rotation);
+
 		}
 	}
+
 }
