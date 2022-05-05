@@ -17,7 +17,7 @@ GameObject:
   - component: {fileID: 5579828889041856844}
   - component: {fileID: 6953176173556419460}
   m_Layer: 3
-  m_Name: Person
+  m_Name: Person_aggre
   m_TagString: People
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -64,7 +64,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4ddda067ad924eb41ae61662d5f0757a, type: 2}
+  - {fileID: 2100000, guid: d23c0172d662e4347b5672f0a966dd2e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -127,17 +127,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1333b07755f75b54e9d08f6a26215745, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visibleLength: 10
+  visibleLength: 50
   numRays: 30
   visibilityAngle: 180
   visible: 1
-  detectPeople: 0
-  exponentialColoring: 0
+  detectPeople: 1
   initalVelocity: {x: 0, y: 0, z: 0}
-  turnSpeed: 0.2
-  acceleration: 0.1
-  interval: 1
-  exponent: 4
+  nudgeFactor: 0.1
+  acceleration: 0.71
+  interval: 50
 --- !u!96 &5579828889041856844
 TrailRenderer:
   serializedVersion: 2
