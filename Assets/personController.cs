@@ -63,7 +63,7 @@ public class personController : MonoBehaviour
         foreach (Ray ray in rays){
             distance = detectPeople ? ray.getNearestCollision() : ray.getNearestWallCollision();
             if (distance < 0) continue;
-            float turnAngle = -(visibilityAngle/2 - Mathf.Abs(ray.angle))*Mathf.Sign(ray.angle);
+            float turnAngle = -(90f - Mathf.Abs(ray.angle))*Mathf.Sign(ray.angle);
             float scalingFactor = (visibleLength - distance)/visibleLength;
             scalingFactor = Mathf.Pow(scalingFactor,exponent);
             nudgeAngle += turnAngle*scalingFactor*turnSpeed;
