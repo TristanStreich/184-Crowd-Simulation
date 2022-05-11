@@ -16,6 +16,8 @@ GameObject:
   - component: {fileID: -555429717142255979}
   - component: {fileID: 5579828889041856844}
   - component: {fileID: 6953176173556419460}
+  - component: {fileID: 857121416901212688}
+  - component: {fileID: 4791723499360607365}
   m_Layer: 3
   m_Name: Person
   m_TagString: People
@@ -44,7 +46,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4645879603952769038}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!23 &4645879603952769032
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -246,3 +248,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f9a56b012cfa94f989af751f7c7f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &857121416901212688
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4645879603952769038}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d722207a366c0e146b4d148d0fc4225e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myManager: {fileID: 0}
+--- !u!114 &4791723499360607365
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4645879603952769038}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fd1ae9e24e60dac439afefc316cac6d7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timeOffset: 0
+  radius: 50
+  speed: 0.001
+  targetObj: {fileID: 0}

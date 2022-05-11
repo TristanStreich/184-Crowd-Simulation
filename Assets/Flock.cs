@@ -8,21 +8,23 @@ public class Flock : MonoBehaviour
 	float speed;
 	Vector3 direction;
 	Vector3 targetpos;
+	
 
 	// Use this for initialization
 	void Start()
 	{
 		speed = Random.Range(myManager.minSpeed,
 								myManager.maxSpeed);
-		targetpos = myManager.target.transform.position.normalized;
+		targetpos = myManager.target.transform.position;
 	}
 
 	// Update is called once per frame
 	void Update()
 	{
+		ApplyRules();
 		transform.Translate(Time.deltaTime * speed, 0, 0);
 		//transform.Rotate(direction);
-		ApplyRules();
+		
 
 	}
 	void ApplyRules()
@@ -48,8 +50,11 @@ public class Flock : MonoBehaviour
 					vcentre += go.transform.position;
 					groupSize++;
 
-					vavoid = vavoid + 10 * (this.transform.position - go.transform.position);
-
+					if (nDistance < 1.0f)
+                    {
+						vavoid = vavoid + (this.transform.position - go.transform.position);
+					}
+					
 					Flock anotherFlock = go.GetComponent<Flock>();
 					gSpeed = gSpeed + anotherFlock.speed;
 				}
@@ -57,16 +62,15 @@ public class Flock : MonoBehaviour
 		}
 		if (groupSize > 0)
 		{
-			vcentre = vcentre / groupSize;
+			vcentre = vcentre / groupSize + (myManager.goalPos - this.transform.position) ;
 			speed = gSpeed / groupSize;
 
-			Vector3 direction = targetpos -transform.position + (vcentre + vavoid);
-
+			Vector3 direction = targetpos - transform.position + 0.1f * (vcentre + vavoid);
 			if (direction != Vector3.zero)
-				transform.Rotate(direction);
-            transform.rotation = Quaternion.Slerp(transform.rotation,
+				//transform.Rotate(direction);
+				transform.rotation = Quaternion.Slerp(transform.rotation,
                                                   Quaternion.LookRotation(direction),
-                                                  myManager.rotationSpeed);
+                                                  myManager.rotationSpeed * Time.deltaTime);
             //float rotation = Quaternion.LookRotation(direction);
             //print(transform.rotation);
 

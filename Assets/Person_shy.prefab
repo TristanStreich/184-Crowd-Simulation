@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: -555429717142255979}
   - component: {fileID: 5579828889041856844}
   - component: {fileID: 6953176173556419460}
+  - component: {fileID: 7985979746905369730}
   m_Layer: 3
   m_Name: Person_shy
   m_TagString: People
@@ -156,7 +157,7 @@ TrailRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 4d2fbc04aadeaa442a5eb75821706fb0, type: 2}
+  - {fileID: 2100000, guid: 000c66001e46fca4c93732aebb533b3b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -246,3 +247,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25f9a56b012cfa94f989af751f7c7f6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7985979746905369730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4645879603952769038}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d722207a366c0e146b4d148d0fc4225e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myManager: {fileID: 0}
