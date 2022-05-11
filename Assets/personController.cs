@@ -12,11 +12,14 @@ public class personController : MonoBehaviour
     public float visibilityAngle;
     public bool visible;
     public bool detectPeople;
+    public bool exponentialColoring;
     public Vector3 initalVelocity;
-    public float nudgeFactor;
+    [Range(0f,1f)]
+    public float turnSpeed;
     [Range(0f,1f)]
     public float acceleration;
     public float interval;
+    public int exponent;
 
 
     float lineWidth = 0.1f;
@@ -54,14 +57,33 @@ public class personController : MonoBehaviour
 
     // turns the agent away from upcoming obstacles.
     public void nudge(){
+        //~~~~~~~~~~~~~~~~~~~~~~~~ Old Approach ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
         float nudgeAngle = 0f;
         float distance;
         foreach (Ray ray in rays){
             distance = detectPeople ? ray.getNearestCollision() : ray.getNearestWallCollision();
             if (distance < 0) continue;
-            float turnAngle = -(visibilityAngle/2 - Mathf.Abs(ray.angle))*Mathf.Sign(ray.angle);
-            nudgeAngle += turnAngle*((visibleLength - distance)/visibleLength)*nudgeFactor;
+            float turnAngle = -(90f - Mathf.Abs(ray.angle))*Mathf.Sign(ray.angle);
+            float scalingFactor = (visibleLength - distance)/visibleLength;
+            scalingFactor = Mathf.Pow(scalingFactor,exponent);
+            nudgeAngle += turnAngle*scalingFactor*turnSpeed;
         }
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+        //~~~~~~~~~~~~~~~~~~~~~~~ Attempt at new Approach ~~~~~~~~~~~~~~~~~~
+        // float maxDistance = 0;
+        // Ray maxRay = rays[0];
+        // float dist;
+        // foreach (Ray ray in rays){
+        //     dist = detectPeople ? ray.getNearestCollision() : ray.getNearestWallCollision();
+        //     dist = dist < 0 ? visibleLength : dist;
+        //     if (dist > maxDistance || (dist == maxDistance && (Mathf.Abs(ray.angle) < Mathf.Abs(maxRay.angle)))){
+        //         maxRay = ray;
+        //         maxDistance = dist;
+        //     }
+        // }
+        // float nudgeAngle = maxRay.angle*turnSpeed;
+        //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
         // doesn't update rotation every update
         if (Time.frameCount % interval == 0)
@@ -123,9 +145,10 @@ public class personController : MonoBehaviour
 
         float len = detectPeople ? ray.getNearestCollision() : ray.getNearestWallCollision();
         if (len >= 0){
-            float w = len/visibleLength;
-            drawLine.startColor = startingColor*(w) + collColor*(1-w);
-            drawLine.endColor = startingColor*(w) + collColor*(1-w);
+            float r = (visibleLength - len)/visibleLength;
+            r = exponentialColoring ? Mathf.Pow(r,exponent) : r;
+            drawLine.startColor = startingColor*(1-r) + collColor*(r);
+            drawLine.endColor = startingColor*(1-r) + collColor*(r);
         } else {
             len = visibleLength;
         }
